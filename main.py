@@ -1,3 +1,6 @@
+# Nama: Reyhan Dany_F55123095
+# Kelas: TI C
+
 # Daftar data yang akan dicari
 a = [2, 2, 1, 3, 5, 5, 5, 7, 2, 10]
 
