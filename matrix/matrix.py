@@ -1,6 +1,5 @@
 # pake library
 import numpy as np
-
 A = np.array([[3, 0], [1, -2], [1, 1]])
 B = np.array([[4, -1], [0, 2]])
 C = np.array([[1, 4, 2], [3, 1, 5]])
@@ -9,6 +8,9 @@ E = np.array([[6, 1, 3], [-1, 2, 2], [4, 1, 3]])
 
 
 def multiply_matrices(X, Y):
+    # Tambahkan validasi ukuran matriks
+    if X.shape[1] != Y.shape[0]:  
+        raise ValueError("Jumlah kolom matriks pertama harus sama dengan jumlah baris matriks kedua.")
     result = np.zeros((X.shape[0], Y.shape[1])) 
     for i in range(X.shape[0]):  
         for j in range(Y.shape[1]): 
@@ -17,14 +19,19 @@ def multiply_matrices(X, Y):
     return result
 
 def add_matrices(X, Y):
+    # Tambahkan validasi ukuran matriks
+    if X.shape != Y.shape:
+        raise ValueError("Ukuran matriks harus sama untuk penjumlahan.")
     result = np.zeros(X.shape)  
     for i in range(X.shape[0]):
         for j in range(X.shape[1]):
             result[i, j] = X[i, j] + Y[i, j]
     return result
 
-
 def subtract_matrices(X, Y):
+    # Tambahkan validasi ukuran matriks
+    if X.shape != Y.shape:
+        raise ValueError("Ukuran matriks harus sama untuk pengurangan.")
     result = np.zeros(X.shape)  
     for i in range(X.shape[0]):
         for j in range(X.shape[1]):
@@ -40,7 +47,6 @@ try:
 except ValueError as e:
     print("Error saat menghitung A x C:", e)
 
-
 try:
     AD = multiply_matrices(A, D)
     print("\nHasil A x D:")
@@ -49,7 +55,6 @@ try:
 except ValueError as e:
     print("\nError saat menghitung A x D:", e)
 
-
 try:
     DE_add = add_matrices(D, E)
     print("\nHasil D + E:")
@@ -57,7 +62,6 @@ try:
         print(row)
 except ValueError as e:
     print("\nError saat menghitung D + E:", e)
-
 
 try:
     DE_sub = subtract_matrices(D, E)
@@ -77,6 +81,9 @@ E = [[6, 1, 3], [-1, 2, 2], [4, 1, 3]]
 
 
 def multiply_matrices(X, Y):
+    # Tambahkan validasi ukuran matriks
+    if len(X[0]) != len(Y):  
+        raise ValueError("Jumlah kolom matriks pertama harus sama dengan jumlah baris matriks kedua.")
     
     result = [[0 for _ in range(len(Y[0]))] for _ in range(len(X))]
     for i in range(len(X)):  
@@ -85,16 +92,22 @@ def multiply_matrices(X, Y):
                 result[i][j] += X[i][k] * Y[k][j]
     return result
 
-
 def add_matrices(X, Y):
+    # Tambahkan validasi ukuran matriks
+    if len(X) != len(Y) or len(X[0]) != len(Y[0]):
+        raise ValueError("Ukuran matriks harus sama untuk penjumlahan.")
+    
     result = [[0 for _ in range(len(X[0]))] for _ in range(len(X))]  
     for i in range(len(X)):
         for j in range(len(X[0])):
             result[i][j] = X[i][j] + Y[i][j]
     return result
 
-
 def subtract_matrices(X, Y):
+    # Tambahkan validasi ukuran matriks
+    if len(X) != len(Y) or len(X[0]) != len(Y[0]):
+        raise ValueError("Ukuran matriks harus sama untuk pengurangan.")
+    
     result = [[0 for _ in range(len(X[0]))] for _ in range(len(X))]  
     for i in range(len(X)):
         for j in range(len(X[0])):
@@ -109,7 +122,6 @@ try:
         print(row)
 except ValueError as e:
     print("Error saat menghitung A x C:", e)
-
 
 try:
     AD = multiply_matrices(A, D)
@@ -126,7 +138,6 @@ try:
         print(row)
 except ValueError as e:
     print("\nError saat menghitung D + E:", e)
-
 
 try:
     DE_sub = subtract_matrices(D, E)
